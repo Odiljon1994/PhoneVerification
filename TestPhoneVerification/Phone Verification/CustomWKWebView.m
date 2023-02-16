@@ -71,7 +71,6 @@
     [self addWKWebViewConstraint:NSLayoutAttributeTrailing];
     [self addWKWebViewConstraint:NSLayoutAttributeBottom];
 
-
 }
 
 
@@ -98,7 +97,7 @@
 
     // 메모리에서 랜더링 후 보여줌 Defalt = false
     // true 일경우 랜더링 시간동안 Black 스크린이 나옴
-    wkWebViewConfiguration.suppressesIncrementalRendering = false;
+    wkWebViewConfiguration.suppressesIncrementalRendering = true;
 
     // 기본값 : Dynamic (텍스트 선택시 정밀도 설정)
     wkWebViewConfiguration.selectionGranularity = WKSelectionGranularityDynamic;
@@ -121,7 +120,7 @@
         if (@available(iOS 10.0, *)) {
             // 기본값 : true
             // true : 사용자가 시작 , false : 자동시작
-            wkWebViewConfiguration.mediaTypesRequiringUserActionForPlayback = true;
+            wkWebViewConfiguration.mediaTypesRequiringUserActionForPlayback = false;
         }
 
     }
@@ -195,8 +194,8 @@
 		//웹뷰 내 페이지 이동 안하도록 설정(PolicyCancel)
 		decisionHandler(WKNavigationActionPolicyCancel);
 		return;
+        
     }
-
 
 	//일반 웹 페이지 링크 처리(PolicyAllow)
     decisionHandler(WKNavigationActionPolicyAllow);
