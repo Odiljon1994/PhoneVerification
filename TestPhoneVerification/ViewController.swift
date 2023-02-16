@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var customWebView: CustomWKWebView!
     
+    
     let url = "http://52.79.159.186:8080/seyfert/phone/main?type=REG"
     
     override func viewDidLoad() {
