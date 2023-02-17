@@ -8,7 +8,20 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
+class ViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler {
+    
+    @objc(userContentController:didReceiveScriptMessage:) func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        
+        print("*********")
+        print(message)
+        print("*********")
+        
+        if message.name == "SeyfertCall" {
+            print(message.body)
+        }
+        
+    }
+    
 	
 	var webViews = [WKWebView]()
 	var webView: WKWebView!
@@ -18,8 +31,15 @@ class ViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let contentController = WKUserContentController()
+            contentController.add(self, name: "SeyfertCall")
+        
+        let config = WKWebViewConfiguration()
+        config.userContentController = contentController
+        
+        
 		let screenSize: CGRect = UIScreen.main.bounds
-		webView = createWebView(frame: screenSize, configuration: WKWebViewConfiguration())
+		webView = createWebView(frame: screenSize, configuration: config)
 		
 		webView.translatesAutoresizingMaskIntoConstraints = false
 		webView.scrollView.bounces = true;
@@ -30,6 +50,8 @@ class ViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
 		
 		//Message Handler
 		webView.configuration.userContentController = WKUserContentController()
+        
+        
 		
 		//Default = fasle
 		//true -> Render from memory then show
@@ -151,6 +173,14 @@ class ViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
 		self.webViews.popLast()?.removeFromSuperview()
 		
 	}
+    
+    ///
+    
+    
+    
+
+    
+
 	
 }
 
